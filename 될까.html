@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>★외계인 상점★</title>
+    <style>
+        body {
+            font-family: monospace;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .product {
+            display: inline-block; /* 제품을 가로로 배치 */
+            margin: 10px;
+            padding: 10px;
+        }
+        .product img {
+            width: 150px;
+            height: 200px;
+        }
+        .cart {
+            margin-top: 30px;
+            padding: 20px;
+        }
+        a {
+            margin-top: 10px;
+            font-size: 32px;
+        }
+        h2 {
+            font-size: 32px;
+        }
+        p {
+            font-size: 20px;
+        }
+        .discount {
+            color: gray;
+            text-decoration: line-through;
+        }
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        let totalPrice = 0;
+        let cartItems = [];
+        let itemCounts = {}; // 각 아이템의 수량을 저장할 객체
+
+        function addToCart(ProductName, price) {
+            cartItems.push(ProductName);
+            totalPrice += price;
+
+            // 아이템 수량 업데이트
+            if (itemCounts[ProductName]) {
+                itemCounts[ProductName]++;
+            } else {
+                itemCounts[ProductName] = 1;
+            }
+
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemList = Object.keys(itemCounts).map(item => `${item} (${itemCounts[item]})`).join(", ");
+            document.getElementById("cartItems").innerText = "사다: " + (cartItemList.length > 0 ? cartItemList : "빈");
+
+            // 할인 계산
+            let displayPrice = totalPrice;
+            let discountPrice = 0;
+
+            if (totalPrice >= 100000000) {
+                discountPrice = totalPrice * 0.8; // 20% 할인
+            }
+
+            // 가격 표시 업데이트
+            const totalPriceElement = document.getElementById("totalPrice");
+            if (discountPrice > 0) {
+                totalPriceElement.innerHTML = `
+                    돈: <span class="discount">${displayPrice.toLocaleString()}</span> 
+                    <span class="red">${discountPrice.toLocaleString()}</span>`;
+            } else {
+                totalPriceElement.innerText = "돈: " + totalPrice.toLocaleString();
+            }
+        }
+
+        function goToPayment() {
+            if (totalPrice >= 100000000) {
+                window.location.href = "결제창2.html"; // 총 금액이 1억 이상일 때
+            } else {
+                window.location.href = "결제창1.html"; // 총 금액이 1억 미만일 때
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>정말 1억 이상 사면 20% 할인!</br>우주 쇼핑몰 VIP 된다</h1>
+
+    <div class="products">
+        <div class="product">
+            <img src="혈욕조.jpg" alt="혈욕조" onclick="addToCart('혈욕조', 29999999)" />
+            <p><b>혈욕조</b></br> 29,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="흡혈식기.jpg" alt="흡혈 식기" onclick="addToCart('흡혈식기', 14999999)"/>
+            <p><b>흡혈식기</b></br> 14,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="더넓은무전기.jpg" alt="더 넓은 무전기" onclick="addToCart('더 넓은 무전기', 4999999)"/>
+            <p><b>더 넓은 무전기</b></br> 4,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="앨리스피크닉.jpg" alt="앨리스 피크닉 세트" onclick="addToCart('앨리스 피크닉 세트', 11999999)"/>
+            <p><b>앨리스 피크닉 세트</b></br> 11,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="우리가도움.jpg" alt="우리가 도움!" onclick="addToCart('우리가 도움!', 66666666)"/>
+            <p><b>우리가 도움!</b></br> 66,666,666</p>
+        </div>
+
+        <div class="product">
+            <img src="은화뱀.jpg" alt="은화뱀" onclick="addToCart('은화뱀', 19999999)"/>
+            <p><b>은화뱀</b></br> 19,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="신기한양초키트.jpg" alt="신비한 양초 키트" onclick="addToCart('신비한 양초 키트', 19999999)"/>
+            <p><b>신비한 양초 키트</b></br> 19,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="백설사과.jpg" alt="백설 공주의 사과" onclick="addToCart('백설 공주의 사과', 12999999)"/>
+            <p><b>백설 공주의 사과</b></br> 12,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="해피메이커.jpg" alt="해피 메이커" onclick="addToCart('해피 메이커', 27999999)"/>
+            <p><b>해피 메이커</b></br> 27,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="노스텔지어.jpg" alt="노스텔지어 캔디" onclick="addToCart('노스텔지어 캔디', 12999999)"/>
+            <p><b>노스텔지어 캔디</b></br> 12,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="포장지.jpg" alt="포장지12B357나" onclick="addToCart('포장지12B357나', 9999999)"/>
+            <p><b>포장지12B357나</b></br> 9,999,999</p>
+        </div>
+
+        <div class="product">
+            <img src="무제62_20241224003141.jpg" alt="네크로노미콘" onclick="addToCart('네크로노미콘', 49999999)"/>
+            <p><b>네크로노미콘</b></br> 49,999,999</p>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>장바구니</h2>
+        <p id="cartItems">사다: 빈</p>
+        <p id="totalPrice">돈: 0</p>
+    </div>
+
+    <a href="#" class="checkout-link" onclick="goToPayment()">>>결제하다</a>
+</body>
+</html>
